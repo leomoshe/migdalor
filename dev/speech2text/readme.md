@@ -1,0 +1,1 @@
+download the models--guillaumekln--faster-whisper-large-v1 model to C:\\migdalor\\dev\\models\\

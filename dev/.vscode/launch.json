@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "youtube_manager",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/youtube_manager",
+            "program": "${workspaceFolder}/youtube_manager/app.py",
+            "python": "${workspaceFolder}/youtube_manager/.venv/Scripts/python.exe",
+            "args": [
+                "--keyword",
+                "חינוכית",
+                "--output",
+                "c:\\migdalor\\media\\chinuchit",
+              ]
+        },
+        {
+            "name": "speech2text",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/speech2text",
+            "program": "${workspaceFolder}/speech2text/app.py",
+            "python": "${workspaceFolder}/speech2text/.venv/Scripts/python.exe",
+            "args": [
+                "--path",
+                "c:\\migdalor\\media\\chinuchit",
+              ]
+        },
+        {
+            "name": "wer_metrics",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/wer_metrics",
+            "program": "${workspaceFolder}/wer_metrics/app.py",
+            "python": "${workspaceFolder}/wer_metrics/.venv/Scripts/python.exe"
+        },
+    ]
+}
