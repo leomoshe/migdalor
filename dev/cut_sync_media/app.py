@@ -29,7 +29,7 @@ def get_duration(filename):
 
 
 def cut_video(filename, output_dir, start_time, end_time):
-    process = subprocess.Popen(["ffmpeg", "-i", filename, "-ss", f"{start_time}", "-t", f"{end_time-start_time}", os.path.join(output_dir, f'part_{start_time}{os.path.splitext(filename)[1]}')], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(["ffmpeg", "-i", filename, "-ss", f"{start_time}", "-t", f"{end_time-start_time}", os.path.join(output_dir, f'part_{start_time}_{end_time}{os.path.splitext(filename)[1]}')], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
 
 
@@ -65,46 +65,50 @@ def get_folder_path_from_file(file_path):
     return folder_path
 
 
-def process_cut(fullpath: str):
+def process_cut(fullpath: str, duration, overlap):
     subtitle_filename = fullpath
-    #subtitle_folder = os.path.dirname(subtitle_filename)
     multimedia_filename = find_multimedia_file(subtitle_filename)
     if multimedia_filename is None:
         return
     dest_path = get_folder_path_from_file(fullpath)
     Path(dest_path).mkdir(parents=True, exist_ok=True)
 
-    duration = get_duration(multimedia_filename)
+    multimedia_duration = get_duration(multimedia_filename)
 
     # Cut the video
-    for i in range(0, int(duration), 30):
-        start_time = i
-        end_time = min(duration, i+30)
+    start_time = 0
+    while start_time < multimedia_duration:
+        end_time = min(multimedia_duration, start_time + duration + overlap)
         cut_video(multimedia_filename, dest_path, start_time, end_time)
+        start_time = start_time + duration
 
     # Sinc the subtitles
     file_extension = os.path.splitext(multimedia_filename)[1]
-    for i in range(0, int(duration), 30):
-        start_time = i
-        end_time = min(duration, i+30)
-        output_filename = os.path.join(dest_path, f'part_{i}{file_extension}')
+    start_time = 0
+    while start_time < multimedia_duration:
+        end_time = min(multimedia_duration, start_time + duration + overlap)
+        output_filename = os.path.join(dest_path, f'part_{start_time}_{end_time}{file_extension}')
         sync_subtitles(multimedia_filename, subtitle_filename, output_filename, start_time, end_time)
-
+        start_time = start_time + duration
 
 def main(config: tools.Configuration) -> None:
     src_path = config['path']
+    duration = config['duration']
+    overlap = config['overlap']
     if os.path.isdir(src_path):
         for filename in os.listdir(src_path):
             if filename.endswith(".srt") and not filename.lower().endswith(".gen.srt"):
                 filepath = os.path.join(src_path, filename)
-                process_cut(filepath)
+                process_cut(filepath, duration, overlap)
     elif os.path.isfile(src_path):
-        process_cut(src_path)
+        process_cut(src_path, duration, overlap)
 
 
 if __name__ == "__main__":
     logger.info("Program running")
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('-p', '--path', type=str, help='Path to the file or the folder: C:\\dev\\data\\poc_a1.pdf')
+    parser.add_argument('-d', '--duration', required=False)
+    parser.add_argument('-o', '--overlap', required=False)
     config = tools.Configuration( __file__.replace('py', 'json'), parser)
     main(config)
