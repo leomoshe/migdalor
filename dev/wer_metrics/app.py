@@ -50,7 +50,6 @@ def process_wer(fullpath: str):
 
 def main(config: Configuration) -> None:
     src_path = config['path']
-    #hypothesis_path = config['hypothesis_path'] 
     report_path = os.path.join(src_path, "wer_report.csv")
     with open(report_path, "w", encoding="utf-8") as report_file:
         report_file.write(f"Srt,Score\n")

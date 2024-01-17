@@ -49,5 +49,14 @@
             "program": "${workspaceFolder}/wer_metrics/app.py",
             "python": "${workspaceFolder}/wer_metrics/.venv/Scripts/python.exe"
         },
+        {
+            "name": "cut_sync_media",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/cut_sync_media",
+            "program": "${workspaceFolder}/cut_sync_media/app.py",
+            "python": "python.exe"
+        }
     ]
 }

@@ -2,6 +2,8 @@ import argparse
 import os
 import json
 
+multimedia_extensions = ['.mp4', '.webm', '.avi', '.mkv', '.mov', '.wmv', '.flv']
+
 
 class Configuration(dict):
     instance = None
