@@ -57,6 +57,15 @@
             "cwd": "${workspaceFolder}/cut_sync_media",
             "program": "${workspaceFolder}/cut_sync_media/app.py",
             "python": "python.exe"
+        },
+        {
+            "name": "media_report",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/media_report",
+            "program": "${workspaceFolder}/media_report/app.py",
+            "python": "python.exe"
         }
     ]
 }
