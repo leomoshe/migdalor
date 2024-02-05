@@ -72,5 +72,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('-p', '--path', type=str, help='Path to the file or the folder: C:\\dev\\data\\poc_a1.pdf')
     config = Configuration( __file__.replace('py', 'json'), parser)
+    logger.info(config)
     main(config)
 

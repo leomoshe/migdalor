@@ -217,6 +217,7 @@ if __name__ == "__main__":
     parser.add_argument('-vid', '--video_id', required=False)
     parser.add_argument('-o', '--output', required=True)
     config = Configuration( __file__.replace('py', 'json'), parser)
+    logger.info(config)
     if (config['api_key'] is not None and config['keyword'] is not None and config['video_id'] is None) or \
         (config['api_key'] is None and config['keyword'] is None and config['video_id'] is not None):
         pass

@@ -27,7 +27,7 @@ def get_duration(filename):
         duration = float(duration_str)
         return duration
     except subprocess.CalledProcessError as e:
-        print(f"Error obteniendo la duración del video: {e}")
+        print(f"Error in video duration: {e}")
         return None
 
 
@@ -162,4 +162,5 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--duration', required=False)
     parser.add_argument('-o', '--overlap', required=False)
     config = tools.Configuration( __file__.replace('py', 'json'), parser)
+    logger.info(config)
     main(config)
